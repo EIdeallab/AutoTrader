@@ -24,7 +24,11 @@ namespace CandlestickChart
         private int selectedMinuteUnit = 1;
         private Boolean isMinuteSelected = false;
         private Boolean isTickSelected = false;
-        
+        private Boolean isPriceResize = false;
+        private Point MousePoint;
+        private double MaxAxisY;
+        private double MinAxisY;
+
         public Form1()
         {
             InitializeComponent();
@@ -57,6 +61,9 @@ namespace CandlestickChart
             this.MainChart.AxisViewChanged += this.ChartAxisViewChanged;
             this.MainChart.MouseWheel += this.ChartMouseWheel;
             this.MainChart.MouseMove += this.ChartMouseMove;
+            this.chartYLabel.MouseDown += this.LabelMouseDown;
+            this.chartYLabel.MouseMove += this.LabelMouseMove;
+            this.chartYLabel.MouseUp += this.LabelMouseUp;
 
             MainChart.ChartAreas[0].AxisY.LabelStyle.Format = "#,##0";
             MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0,K";
@@ -601,14 +608,17 @@ namespace CandlestickChart
 
             double max = axisX.ScaleView.ViewMaximum;
             double min = axisX.ScaleView.ViewMinimum;
-            double sig = (e.Delta > 0) ? 5 : -5;
+            int sig = (e.Delta > 0) ? 1 : -1;
 
             double axisValue = axisX.PixelPositionToValue(e.Location.X);
-            double ratio = (axisValue - min) / (max - min);
-            
-            double stPosX = min + (int)(sig * ratio);
-            double edPosX = max - (int)(sig * (1 - ratio));
-            
+            int ratio = (int)((axisValue - min) * 100 / (max - min));
+
+            int minDiff = sig * ratio;
+            int maxDiff = sig * (100 - ratio);
+
+            double stPosX = (int)min + minDiff;
+            double edPosX = (int)max - maxDiff;
+
             MainChart.ChartAreas[0].AxisX.ScaleView.Zoom(stPosX, edPosX);
         }
 
@@ -623,7 +633,6 @@ namespace CandlestickChart
                 chartYLabel.Visible = true;
                 priceChartArea.CursorX.SetCursorPixelPosition(mousePoint, true);
                 priceChartArea.CursorY.SetCursorPixelPosition(mousePoint, true);﻿
-                
                 
                 chartYLabel.Text = String.Format("{0:#,###}", priceChartArea.CursorY.Position);
                 chartYLabel.Location = new Point((int)(MainChart.Width * 0.9), e.Y - chartYLabel.Height / 2);
@@ -641,38 +650,35 @@ namespace CandlestickChart
             {
                 chartYLabel.Visible = false;
             }
-         }
-        
-        //class MyOnSearchedItemSelectedListener : OnSearchedItemSelectedListener
-        //{
-        //    Form1 form1;
-        //    public MyOnSearchedItemSelectedListener(Form1 form1)
-        //    {
-        //        this.form1 = form1;
-        //    }
-        //    public void OnSelected(string 종목명, string 종목코드)
-        //    {
-        //        //Console.WriteLine("종목명=" + 종목명 + " 종목코드=" + 종목코드);
-        //        form1.itemCodeTextBox.Text = 종목코드;
-        //        form1.currentStockCode = 종목코드;
-        //        form1.itemNameLabel.Text = form1.axKHOpenAPI1.GetMasterCodeName(form1.currentStockCode);
-        //        form1.requestDailyChart();
-        //    }
-        //}
+        }
+
+        private void LabelMouseDown(object sender, MouseEventArgs e)
+        {
+            MaxAxisY = MainChart.ChartAreas[0].AxisY.Maximum;
+            MinAxisY = MainChart.ChartAreas[0].AxisY.Minimum;
+
+            MousePoint = e.Location;
+            isPriceResize = true;
+        }
+
+        private void LabelMouseMove(object sender, MouseEventArgs e)
+        {
+            if(isPriceResize)
+            {
+                int DeltaY = (e.Location.Y - MousePoint.Y) * 20;
+                MainChart.ChartAreas[0].AxisY.Maximum = MaxAxisY + DeltaY;
+                MainChart.ChartAreas[0].AxisY.Minimum = MinAxisY - DeltaY;
+            }
+        }
+
+        private void LabelMouseUp(object sender, MouseEventArgs e)
+        {
+            isPriceResize = false;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
-    }
-
-    class PriceInfoEntityObject
-    {
-        public String 일자 { get; set; }
-        public int 시가 { get; set; }
-        public int 고가 { get; set; }
-        public int 저가 { get; set; }
-        public int 종가 { get; set; }
-        public int 거래량 { get; set; }
     }
 }
