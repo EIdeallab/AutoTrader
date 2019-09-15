@@ -18,6 +18,8 @@ namespace CandlestickChart
 
         private Series priceSeries;
         private Series volumeSeries;
+        private Series askSeries;
+        private Series bidSeries;
 
         private string currentStockCode = "";
         private int selectedTickUnit = 1;
@@ -58,6 +60,8 @@ namespace CandlestickChart
             priceSeries["PriceUpColor"] = "Red";
             priceSeries["PriceDownColor"] = "Blue";
             volumeSeries = MainChart.Series["volumeSeries"];
+            askSeries = OrderBook.Series["askSeries"];
+            bidSeries = OrderBook.Series["bidSeries"];
             this.MainChart.AxisViewChanged += this.ChartAxisViewChanged;
             this.MainChart.MouseWheel += this.ChartMouseWheel;
             this.MainChart.MouseMove += this.ChartMouseMove;
@@ -67,7 +71,7 @@ namespace CandlestickChart
 
             MainChart.ChartAreas[0].AxisY.LabelStyle.Format = "#,##0";
             MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0,K";
-
+            
             new ToolTip().SetToolTip(currentPriceLabel, "현재가");
             new ToolTip().SetToolTip(netChangeLabel, "전일대비");
             new ToolTip().SetToolTip(fluctuationRateLabel, "등락률");
@@ -245,11 +249,9 @@ namespace CandlestickChart
             }
             else if(sender.Equals(this.searchButton))
             {
-                
                 //종목검색창 = jamongCommonClass.Get종목검색창();   //종목검색창 객체 불러오기
                 //종목검색창.setOnSearchedItemSelectedListener(new MyOnSearchedItemSelectedListener(this)); //종목 선택 이벤트 등록
                 //종목검색창.Show(); //종목검색창 띄우기
-                 
             }
         }
 
@@ -274,7 +276,7 @@ namespace CandlestickChart
             axKHOpenAPI1.SetInputValue("기준일자", DateTime.Now.ToString("yyyyMMdd"));
             axKHOpenAPI1.SetInputValue("수정주가구분", "1");
 
-            int nRet = axKHOpenAPI1.CommRqData("JM_주식일봉차트조회", "OPT10081", 0, "1002");
+            int nRet = axKHOpenAPI1.CommRqData("주식일봉차트조회", "OPT10081", 0, "1002");
 
             if (nRet == 0)
                 Console.WriteLine("주식 일봉 정보요청 성공");
@@ -289,7 +291,7 @@ namespace CandlestickChart
             axKHOpenAPI1.SetInputValue("끝일자", "");
             axKHOpenAPI1.SetInputValue("수정주가구분", "1");
 
-            int nRet = axKHOpenAPI1.CommRqData("JM_주식주봉차트조회", "OPT10082", 0, "1002");
+            int nRet = axKHOpenAPI1.CommRqData("주식주봉차트조회", "OPT10082", 0, "1002");
 
             if (nRet == 0)
                 Console.WriteLine("주식 주봉 정보요청 성공");
@@ -304,7 +306,7 @@ namespace CandlestickChart
             axKHOpenAPI1.SetInputValue("끝일자", "");
             axKHOpenAPI1.SetInputValue("수정주가구분", "1");
 
-            int nRet = axKHOpenAPI1.CommRqData("JM_주식월봉차트조회", "OPT10083", 0, "1002");
+            int nRet = axKHOpenAPI1.CommRqData("주식월봉차트조회", "OPT10083", 0, "1002");
 
             if (nRet == 0)
                 Console.WriteLine("주식 월봉 정보요청 성공");
@@ -318,7 +320,7 @@ namespace CandlestickChart
             axKHOpenAPI1.SetInputValue("틱범위", minuteUnit + "");
             axKHOpenAPI1.SetInputValue("수정주가구분", "1");
 
-            int nRet = axKHOpenAPI1.CommRqData("JM_주식분봉차트조회", "OPT10080", 0, "1002");
+            int nRet = axKHOpenAPI1.CommRqData("주식분봉차트조회", "OPT10080", 0, "1002");
 
             if (nRet == 0)
                 Console.WriteLine("주식 분봉 정보요청 성공");
@@ -332,7 +334,7 @@ namespace CandlestickChart
             axKHOpenAPI1.SetInputValue("틱범위", tickUnit.ToString());
             axKHOpenAPI1.SetInputValue("수정주가구분", "1");
 
-            int nRet = axKHOpenAPI1.CommRqData("JM_주식틱봉차트조회", "OPT10079", 0, "1002");
+            int nRet = axKHOpenAPI1.CommRqData("주식틱봉차트조회", "OPT10079", 0, "1002");
 
             if (nRet == 0)
                 Console.WriteLine("주식 틱봉 정보요청 성공");
@@ -344,7 +346,7 @@ namespace CandlestickChart
         {
             axKHOpenAPI1.SetInputValue("종목코드", this.itemCodeTextBox.Text.Trim());
 
-            int nRet = axKHOpenAPI1.CommRqData("JM_주식기본정보요청", "OPT10001", 0, "1003");
+            int nRet = axKHOpenAPI1.CommRqData("주식기본정보요청", "OPT10001", 0, "1003");
 
             if (nRet == 0)
                 Console.WriteLine("주식기본정보요청 성공");
@@ -352,9 +354,21 @@ namespace CandlestickChart
                 Console.WriteLine("주식기본정보요청 실패");
         }
 
+        private void RequestOrderBook(string 종목코드)
+        {
+            axKHOpenAPI1.SetInputValue("종목코드", this.itemCodeTextBox.Text.Trim());
+
+            int nRet = axKHOpenAPI1.CommRqData("주식호가정보요청", "OPT10004", 0, "1004");
+
+            if (nRet == 0)
+                Console.WriteLine("주식호가정보요청 성공");
+            else
+                Console.WriteLine("주식호가정보요청 실패");
+        }
+
         private void KHOpenAPI_OnReceiveTrData(object sender, AxKHOpenAPILib._DKHOpenAPIEvents_OnReceiveTrDataEvent e)
         {
-            if (e.sRQName == "JM_주식일봉차트조회" || e.sRQName == "JM_주식주봉차트조회" || e.sRQName == "JM_주식월봉차트조회" || e.sRQName == "JM_주식분봉차트조회" || e.sRQName == "JM_주식틱봉차트조회")
+            if (e.sRQName == "주식일봉차트조회" || e.sRQName == "주식주봉차트조회" || e.sRQName == "주식월봉차트조회" || e.sRQName == "주식분봉차트조회" || e.sRQName == "주식틱봉차트조회")
             {
                 try
                 {
@@ -364,7 +378,7 @@ namespace CandlestickChart
                     priceSeries.Points.Clear();
                     volumeSeries.Points.Clear();
 
-                    if(e.sRQName == "JM_주식분봉차트조회" || e.sRQName == "JM_주식틱봉차트조회")
+                    if(e.sRQName == "주식분봉차트조회" || e.sRQName == "주식틱봉차트조회")
                         MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0";
                     else
                         MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0,K";
@@ -380,7 +394,7 @@ namespace CandlestickChart
 
                     for (int nIdx = 0; nIdx < nCnt; nIdx++)
                     {
-                        if (e.sRQName == "JM_주식분봉차트조회" || e.sRQName == "JM_주식틱봉차트조회")
+                        if (e.sRQName == "주식분봉차트조회" || e.sRQName == "주식틱봉차트조회")
                             priceInfoList.Add(new PriceInfoEntityObject()
                             {
                                 일자 = axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, nIdx, "체결시간").Trim(),
@@ -429,6 +443,7 @@ namespace CandlestickChart
                     }
 
                     RequestStockInfo(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "종목코드").Trim());
+                    RequestOrderBook(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "종목코드").Trim());
 
                     if (nCnt > 0)
                     {
@@ -447,7 +462,7 @@ namespace CandlestickChart
                 }
                 
             }
-            else if(e.sRQName == "JM_주식기본정보요청")
+            else if(e.sRQName == "주식기본정보요청")
             {
                 try
                 {
@@ -462,6 +477,73 @@ namespace CandlestickChart
 
                     SetStockInfo(현재가, 전일대비, 등락율, 거래량, 거래대비, 0, 0, 시가, 고가, 저가);
                 }catch(Exception exception)
+                {
+                    Console.WriteLine(exception.Message.ToString());
+                }
+            }
+            else if (e.sRQName == "주식호가정보요청")
+            {
+                List<BidAskSpread> AskSpreadList = new List<BidAskSpread>();
+                List<BidAskSpread> BidSpreadList = new List<BidAskSpread>();
+                try
+                {
+                    for (int i = 0; i < 9; i++)
+                    {
+                        BidAskSpread bidAskSpread = new BidAskSpread();
+                        if (i == 4)
+                        {
+                            int 호가 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매도" + (10 - i) + "차선호가"));
+                            int 잔량 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매도" + (10 - i) + "우선잔량"));
+                            bidAskSpread.호가 = (호가 > 0)? 호가: -호가;
+                            bidAskSpread.잔량 = 잔량;
+                            AskSpreadList.Add(bidAskSpread);
+                        }
+                        else
+                        {
+                            int 호가 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매도" + (10 - i) + "차선호가"));
+                            int 잔량 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매도" + (10 - i) + "차선잔량"));
+                            bidAskSpread.호가 = (호가 > 0) ? 호가 : -호가;
+                            bidAskSpread.잔량 = 잔량;
+                            AskSpreadList.Add(bidAskSpread);
+                        }
+                    }
+
+                    BidAskSpread askSpreadFirst = new BidAskSpread();
+                    int 매도최우선호가 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매도최우선호가"));
+                    int 매도최우선잔량 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매도최우선잔량"));
+                    askSpreadFirst.호가 = (매도최우선호가 > 0) ? 매도최우선호가 : -매도최우선호가;
+                    askSpreadFirst.잔량 = 매도최우선잔량;
+                    AskSpreadList.Add(askSpreadFirst);
+                    BidAskSpread bidSpreadFirst = new BidAskSpread();
+                    int 매수최우선호가 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매수최우선호가"));
+                    int 매수최우선잔량 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매수최우선잔량"));
+                    bidSpreadFirst.호가 = (매수최우선호가 > 0) ? 매수최우선호가 : -매수최우선호가;
+                    bidSpreadFirst.잔량 = 매수최우선잔량;
+                    BidSpreadList.Add(bidSpreadFirst);
+
+                    for (int i = 0; i < 9; i++)
+                    {
+                        BidAskSpread bidAskSpread = new BidAskSpread();
+                        if (i == 4)
+                        {
+                            int 호가 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매수" + (2 + i) + "우선호가"));
+                            int 잔량 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매수" + (2 + i) + "우선잔량"));
+                            bidAskSpread.호가 = (호가 > 0) ? 호가 : -호가;
+                            bidAskSpread.잔량 = 잔량;
+                            BidSpreadList.Add(bidAskSpread);
+                        }
+                        else
+                        {
+                            int 호가 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매수" + (2 + i) + "차선호가"));
+                            int 잔량 = int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRQName, 0, "매수" + (2 + i) + "차선잔량"));
+                            bidAskSpread.호가 = (호가 > 0) ? 호가 : -호가;
+                            bidAskSpread.잔량 = 잔량;
+                            BidSpreadList.Add(bidAskSpread);
+                        }
+                    }
+                    SetOrderBook(AskSpreadList, BidSpreadList);
+                }
+                catch (Exception exception)
                 {
                     Console.WriteLine(exception.Message.ToString());
                 }
@@ -525,6 +607,19 @@ namespace CandlestickChart
             openPriceLabel.Text = String.Format("{0:#,###}", 시가);
             highPriceLabel.Text = String.Format("{0:#,###}", 고가);
             lowPriceLabel.Text = String.Format("{0:#,###}", 저가);
+        }
+
+        private void SetOrderBook(List<BidAskSpread> AskSpreadList, List<BidAskSpread> BidSpreadList)
+        {
+            askSeries.Points.Clear();
+            foreach (BidAskSpread Ask in AskSpreadList)
+            {
+                askSeries.Points.AddXY(Ask.호가, Ask.잔량);
+            }
+            foreach (BidAskSpread Bid in BidSpreadList)
+            {
+                bidSeries.Points.AddXY(Bid.호가, Bid.잔량);
+            }
         }
 
         private void KHOpenAPI_OnReceiveRealData(object sender, AxKHOpenAPILib._DKHOpenAPIEvents_OnReceiveRealDataEvent e)
@@ -599,7 +694,6 @@ namespace CandlestickChart
                     Console.WriteLine(exception.Message.ToString());
                 }
             }
-           
         }
 
         private void ChartMouseWheel(object sender, MouseEventArgs e)
@@ -666,8 +760,11 @@ namespace CandlestickChart
             if(isPriceResize)
             {
                 int DeltaY = (e.Location.Y - MousePoint.Y) * 20;
-                MainChart.ChartAreas[0].AxisY.Maximum = MaxAxisY + DeltaY;
-                MainChart.ChartAreas[0].AxisY.Minimum = MinAxisY - DeltaY;
+                if (MaxAxisY + DeltaY > MinAxisY - DeltaY)
+                {
+                    MainChart.ChartAreas[0].AxisY.Maximum = MaxAxisY + DeltaY;
+                    MainChart.ChartAreas[0].AxisY.Minimum = MinAxisY - DeltaY;
+                }
             }
         }
 

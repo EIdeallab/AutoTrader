@@ -33,6 +33,9 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.axKHOpenAPI1 = new AxKHOpenAPILib.AxKHOpenAPI();
             this.requestButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -70,12 +73,16 @@
             this.volumeChangeLabel = new System.Windows.Forms.Label();
             this.tradingValueLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.OrderBook = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainChart)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.OrderBook)).BeginInit();
             this.SuspendLayout();
             // 
             // axKHOpenAPI1
@@ -113,7 +120,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(957, 633);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(958, 633);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // tableLayoutPanel2
@@ -164,6 +171,7 @@
             // 
             // dailyButton
             // 
+            this.dailyButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.dailyButton.Location = new System.Drawing.Point(320, 0);
             this.dailyButton.Margin = new System.Windows.Forms.Padding(0);
             this.dailyButton.Name = "dailyButton";
@@ -184,6 +192,7 @@
             // 
             // monthlyButton
             // 
+            this.monthlyButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.monthlyButton.Location = new System.Drawing.Point(400, 0);
             this.monthlyButton.Margin = new System.Windows.Forms.Padding(0);
             this.monthlyButton.Name = "monthlyButton";
@@ -201,6 +210,7 @@
             // 
             // minuteButton
             // 
+            this.minuteButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.minuteButton.Location = new System.Drawing.Point(440, 0);
             this.minuteButton.Margin = new System.Windows.Forms.Padding(0);
             this.minuteButton.Name = "minuteButton";
@@ -266,6 +276,7 @@
             this.n10Button.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.n10Button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.n10Button.Enabled = false;
             this.n10Button.Location = new System.Drawing.Point(641, 1);
             this.n10Button.Margin = new System.Windows.Forms.Padding(1);
@@ -280,6 +291,7 @@
             this.n15Button.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.n15Button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.n15Button.Enabled = false;
             this.n15Button.Location = new System.Drawing.Point(681, 1);
             this.n15Button.Margin = new System.Windows.Forms.Padding(1);
@@ -367,7 +379,7 @@
             this.panel1.Controls.Add(this.MainChart);
             this.panel1.Location = new System.Drawing.Point(3, 78);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(951, 552);
+            this.panel1.Size = new System.Drawing.Size(952, 552);
             this.panel1.TabIndex = 3;
             // 
             // chartYLabel
@@ -375,7 +387,7 @@
             this.chartYLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chartYLabel.BackColor = System.Drawing.Color.NavajoWhite;
             this.chartYLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chartYLabel.Location = new System.Drawing.Point(855, 35);
+            this.chartYLabel.Location = new System.Drawing.Point(856, 35);
             this.chartYLabel.Name = "chartYLabel";
             this.chartYLabel.Size = new System.Drawing.Size(81, 23);
             this.chartYLabel.TabIndex = 5;
@@ -431,7 +443,7 @@
             series2.Name = "volumeSeries";
             this.MainChart.Series.Add(series1);
             this.MainChart.Series.Add(series2);
-            this.MainChart.Size = new System.Drawing.Size(948, 543);
+            this.MainChart.Size = new System.Drawing.Size(949, 543);
             this.MainChart.TabIndex = 1;
             this.MainChart.Text = "chart1";
             // 
@@ -648,11 +660,50 @@
             this.label8.Text = "시";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.88679F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.11321F));
+            this.tableLayoutPanel4.Controls.Add(this.OrderBook, 0, 2);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(963, 7);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.17518F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.82482F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 221F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(318, 633);
+            this.tableLayoutPanel4.TabIndex = 5;
+            // 
+            // OrderBook
+            // 
+            chartArea3.AxisX.LineColor = System.Drawing.Color.Transparent;
+            chartArea3.AxisX2.LineColor = System.Drawing.Color.Transparent;
+            chartArea3.AxisY.LineColor = System.Drawing.Color.Transparent;
+            chartArea3.AxisY2.LineColor = System.Drawing.Color.Transparent;
+            chartArea3.Name = "ChartArea1";
+            this.OrderBook.ChartAreas.Add(chartArea3);
+            this.OrderBook.Location = new System.Drawing.Point(3, 414);
+            this.OrderBook.Name = "OrderBook";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series3.Name = "askSeries";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series4.Name = "bidSeries";
+            series4.SmartLabelStyle.AllowOutsidePlotArea = System.Windows.Forms.DataVisualization.Charting.LabelOutsidePlotAreaStyle.No;
+            series4.SmartLabelStyle.CalloutLineAnchorCapStyle = System.Windows.Forms.DataVisualization.Charting.LineAnchorCapStyle.None;
+            this.OrderBook.Series.Add(series3);
+            this.OrderBook.Series.Add(series4);
+            this.OrderBook.Size = new System.Drawing.Size(312, 216);
+            this.OrderBook.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 643);
+            this.ClientSize = new System.Drawing.Size(1282, 643);
+            this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.axKHOpenAPI1);
             this.Name = "Form1";
@@ -666,6 +717,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainChart)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.OrderBook)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -709,6 +762,8 @@
         private System.Windows.Forms.Button n60Button;
         private System.Windows.Forms.Label itemNameLabel;
         private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.DataVisualization.Charting.Chart OrderBook;
     }
 }
 
