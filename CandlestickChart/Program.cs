@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CandlestickChart
+namespace AutoTrader
 {
     static class Program
     {
@@ -16,7 +16,10 @@ namespace CandlestickChart
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            var view = new View.MainForm();
+            
+            Application.Run(view);
         }
     }
 }

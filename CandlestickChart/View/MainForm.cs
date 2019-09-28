@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 
-namespace CandlestickChart
+namespace AutoTrader.View
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form, IMainView
     {
         List<PriceInfoEntityObject> priceInfoList;
 
@@ -31,7 +31,7 @@ namespace CandlestickChart
         private double MaxAxisY;
         private double MinAxisY;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -52,8 +52,6 @@ namespace CandlestickChart
             this.n30Button.Click += this.ButtonClicked;
             this.n45Button.Click += this.ButtonClicked;
             this.n60Button.Click += this.ButtonClicked;
-
-            
             this.searchButton.Click += this.ButtonClicked;
             
             priceSeries = MainChart.Series["priceSeries"];
@@ -96,6 +94,7 @@ namespace CandlestickChart
             else
             {
                 System.Windows.Forms.MessageBox.Show("로그인 실패");
+                Application.Exit();
             }
         }
 
