@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AxKHOpenAPILib;
 
 namespace AutoTrader
 {
@@ -16,10 +17,12 @@ namespace AutoTrader
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            var view = new View.MainForm();
             
-            Application.Run(view);
+            var mainView = new View.MainForm();
+            var conditionView = new View.ConditionForm();
+            var presenter = new Presenter.StockPresenter(mainView, conditionView);
+
+            Application.Run(mainView);
         }
     }
 }

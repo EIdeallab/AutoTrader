@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoTrader.View
+namespace AutoTrader.Model
 {
-    public interface IMainView
+    interface IStockModel
     {
 
     }
