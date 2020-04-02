@@ -447,7 +447,7 @@ namespace AutoTrader.Presenter
                     BidSpreadList.Add(bidAskSpread);
                 }
             }
-            UpdateOrderBook(AskSpreadList, BidSpreadList);
+            //UpdateOrderBook(AskSpreadList, BidSpreadList);
         }
 
         public void SetRealOrderBookInfo(string trCode)
@@ -474,7 +474,7 @@ namespace AutoTrader.Presenter
                 bidSpread.Price = amount;
                 BidSpreadList.Add(bidSpread);
             }
-            UpdateOrderBook(AskSpreadList, BidSpreadList);
+            //UpdateOrderBook(AskSpreadList, BidSpreadList);
         }
 
         public void SetAssetListView(string trCode, string rqName)
@@ -538,12 +538,11 @@ namespace AutoTrader.Presenter
 
         public void SetConditionStocks(_DKHOpenAPIEvents_OnReceiveTrDataEvent e)
         {
-            mainView.StockList.Clear();
-
             apiModel.SetRequestType(e.sTrCode, e.sRQName);
             int count = apiModel.GetRepeatCnt(e.sTrCode, e.sRQName);
 
             mainView.StockList.BeginUpdate();
+            mainView.StockList.Items.Clear();
             for (int i = 0; i < count; i++)
             {
                 string stockCode = apiModel.GetRequestValue<string>("종목코드", i);

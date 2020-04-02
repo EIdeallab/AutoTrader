@@ -131,8 +131,8 @@ namespace AutoTrader.View
             PriceSeries["PriceUpColor"] = "Red";
             PriceSeries["PriceDownColor"] = "Blue";
             VolumeSeries = mainChart.Series["volumeSeries"];
-            AskSeries = OrderBook.Series["askSeries"];
-            BidSeries = OrderBook.Series["bidSeries"];
+            //AskSeries = OrderBook.Series["askSeries"];
+            //BidSeries = OrderBook.Series["bidSeries"];
 
             mainChart.ChartAreas[0].AxisY.LabelStyle.Format = "#,##0";
             mainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0,K";
