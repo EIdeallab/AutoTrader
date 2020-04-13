@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TabPage conditionTab;
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TabPage conditionPage;
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -36,6 +37,12 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "뉴스",
+            ""}, "news.png");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("네이버증권", "naver.png");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("팍스넷", "paxnet.png");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("공시정보", "dart.png");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.stockList = new System.Windows.Forms.ListView();
             this.stockCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,7 +51,7 @@
             this.volume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dealTab = new System.Windows.Forms.TabControl();
-            this.userTab = new System.Windows.Forms.TabPage();
+            this.userPage = new System.Windows.Forms.TabPage();
             this.userInfoLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.totBuyLabel = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -72,7 +79,7 @@
             this.dayErnLabel = new System.Windows.Forms.Label();
             this.accPcpLabel = new System.Windows.Forms.Label();
             this.accErnLabel = new System.Windows.Forms.Label();
-            this.assetTab = new System.Windows.Forms.TabPage();
+            this.assetPage = new System.Windows.Forms.TabPage();
             this.AssetChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.assetList = new System.Windows.Forms.ListView();
             this.assetName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -120,20 +127,18 @@
             this.epsLabel = new System.Windows.Forms.Label();
             this.evLabel = new System.Windows.Forms.Label();
             this.SideLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.infoTab = new System.Windows.Forms.TabControl();
-            this.newsPage = new System.Windows.Forms.TabPage();
-            this.newsList = new System.Windows.Forms.ListView();
-            this.news = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.disclosurePage = new System.Windows.Forms.TabPage();
-            this.disclosureList = new System.Windows.Forms.ListView();
-            this.disclosure = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ActionTab = new System.Windows.Forms.TabControl();
+            this.FunctionPage = new System.Windows.Forms.TabPage();
+            this.functionList = new System.Windows.Forms.ListView();
+            this.iconList = new System.Windows.Forms.ImageList(this.components);
+            this.OptionPage = new System.Windows.Forms.TabPage();
             this.axKHOpenAPI1 = new AutoTrader.APIExtention();
-            conditionTab = new System.Windows.Forms.TabPage();
-            conditionTab.SuspendLayout();
+            conditionPage = new System.Windows.Forms.TabPage();
+            conditionPage.SuspendLayout();
             this.dealTab.SuspendLayout();
-            this.userTab.SuspendLayout();
+            this.userPage.SuspendLayout();
             this.userInfoLayoutPanel.SuspendLayout();
-            this.assetTab.SuspendLayout();
+            this.assetPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AssetChart)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -141,24 +146,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainChart)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.SideLayoutPanel.SuspendLayout();
-            this.infoTab.SuspendLayout();
-            this.newsPage.SuspendLayout();
-            this.disclosurePage.SuspendLayout();
+            this.ActionTab.SuspendLayout();
+            this.FunctionPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).BeginInit();
             this.SuspendLayout();
             // 
-            // conditionTab
+            // conditionPage
             // 
-            conditionTab.Controls.Add(this.stockList);
-            conditionTab.Controls.Add(this.dateTimePicker1);
-            conditionTab.Location = new System.Drawing.Point(4, 25);
-            conditionTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            conditionTab.Name = "conditionTab";
-            conditionTab.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            conditionTab.Size = new System.Drawing.Size(310, 413);
-            conditionTab.TabIndex = 0;
-            conditionTab.Text = "조건식종목";
-            conditionTab.UseVisualStyleBackColor = true;
+            conditionPage.Controls.Add(this.stockList);
+            conditionPage.Controls.Add(this.dateTimePicker1);
+            conditionPage.Location = new System.Drawing.Point(4, 25);
+            conditionPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            conditionPage.Name = "conditionPage";
+            conditionPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            conditionPage.Size = new System.Drawing.Size(310, 413);
+            conditionPage.TabIndex = 0;
+            conditionPage.Text = "조건식종목";
+            conditionPage.UseVisualStyleBackColor = true;
             // 
             // stockList
             // 
@@ -212,9 +216,9 @@
             this.dealTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dealTab.Controls.Add(conditionTab);
-            this.dealTab.Controls.Add(this.userTab);
-            this.dealTab.Controls.Add(this.assetTab);
+            this.dealTab.Controls.Add(conditionPage);
+            this.dealTab.Controls.Add(this.userPage);
+            this.dealTab.Controls.Add(this.assetPage);
             this.dealTab.Location = new System.Drawing.Point(0, 0);
             this.dealTab.Margin = new System.Windows.Forms.Padding(0);
             this.dealTab.Multiline = true;
@@ -223,16 +227,16 @@
             this.dealTab.Size = new System.Drawing.Size(318, 442);
             this.dealTab.TabIndex = 1;
             // 
-            // userTab
+            // userPage
             // 
-            this.userTab.Controls.Add(this.userInfoLayoutPanel);
-            this.userTab.Location = new System.Drawing.Point(4, 25);
-            this.userTab.Name = "userTab";
-            this.userTab.Padding = new System.Windows.Forms.Padding(3);
-            this.userTab.Size = new System.Drawing.Size(310, 413);
-            this.userTab.TabIndex = 2;
-            this.userTab.Text = "유저정보";
-            this.userTab.UseVisualStyleBackColor = true;
+            this.userPage.Controls.Add(this.userInfoLayoutPanel);
+            this.userPage.Location = new System.Drawing.Point(4, 25);
+            this.userPage.Name = "userPage";
+            this.userPage.Padding = new System.Windows.Forms.Padding(3);
+            this.userPage.Size = new System.Drawing.Size(310, 413);
+            this.userPage.TabIndex = 2;
+            this.userPage.Text = "유저정보";
+            this.userPage.UseVisualStyleBackColor = true;
             // 
             // userInfoLayoutPanel
             // 
@@ -579,18 +583,18 @@
             this.accErnLabel.TabIndex = 23;
             this.accErnLabel.Text = "-";
             // 
-            // assetTab
+            // assetPage
             // 
-            this.assetTab.Controls.Add(this.AssetChart);
-            this.assetTab.Controls.Add(this.assetList);
-            this.assetTab.Location = new System.Drawing.Point(4, 25);
-            this.assetTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.assetTab.Name = "assetTab";
-            this.assetTab.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.assetTab.Size = new System.Drawing.Size(310, 413);
-            this.assetTab.TabIndex = 1;
-            this.assetTab.Text = "보유자산";
-            this.assetTab.UseVisualStyleBackColor = true;
+            this.assetPage.Controls.Add(this.AssetChart);
+            this.assetPage.Controls.Add(this.assetList);
+            this.assetPage.Location = new System.Drawing.Point(4, 25);
+            this.assetPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.assetPage.Name = "assetPage";
+            this.assetPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.assetPage.Size = new System.Drawing.Size(310, 413);
+            this.assetPage.TabIndex = 1;
+            this.assetPage.Text = "보유자산";
+            this.assetPage.UseVisualStyleBackColor = true;
             // 
             // AssetChart
             // 
@@ -1295,7 +1299,7 @@
             this.SideLayoutPanel.ColumnCount = 1;
             this.SideLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.SideLayoutPanel.Controls.Add(this.dealTab, 0, 0);
-            this.SideLayoutPanel.Controls.Add(this.infoTab, 0, 1);
+            this.SideLayoutPanel.Controls.Add(this.ActionTab, 0, 1);
             this.SideLayoutPanel.Location = new System.Drawing.Point(963, 8);
             this.SideLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SideLayoutPanel.Name = "SideLayoutPanel";
@@ -1305,71 +1309,68 @@
             this.SideLayoutPanel.Size = new System.Drawing.Size(318, 632);
             this.SideLayoutPanel.TabIndex = 5;
             // 
-            // infoTab
+            // ActionTab
             // 
-            this.infoTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ActionTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.infoTab.Controls.Add(this.newsPage);
-            this.infoTab.Controls.Add(this.disclosurePage);
-            this.infoTab.Location = new System.Drawing.Point(0, 442);
-            this.infoTab.Margin = new System.Windows.Forms.Padding(0);
-            this.infoTab.Name = "infoTab";
-            this.infoTab.SelectedIndex = 0;
-            this.infoTab.Size = new System.Drawing.Size(318, 190);
-            this.infoTab.TabIndex = 2;
+            this.ActionTab.Controls.Add(this.FunctionPage);
+            this.ActionTab.Controls.Add(this.OptionPage);
+            this.ActionTab.Location = new System.Drawing.Point(0, 442);
+            this.ActionTab.Margin = new System.Windows.Forms.Padding(0);
+            this.ActionTab.Name = "ActionTab";
+            this.ActionTab.SelectedIndex = 0;
+            this.ActionTab.Size = new System.Drawing.Size(318, 190);
+            this.ActionTab.TabIndex = 2;
             // 
-            // newsPage
+            // FunctionPage
             // 
-            this.newsPage.Controls.Add(this.newsList);
-            this.newsPage.Location = new System.Drawing.Point(4, 25);
-            this.newsPage.Name = "newsPage";
-            this.newsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.newsPage.Size = new System.Drawing.Size(310, 161);
-            this.newsPage.TabIndex = 0;
-            this.newsPage.Text = "뉴스";
-            this.newsPage.UseVisualStyleBackColor = true;
+            this.FunctionPage.Controls.Add(this.functionList);
+            this.FunctionPage.Location = new System.Drawing.Point(4, 25);
+            this.FunctionPage.Name = "FunctionPage";
+            this.FunctionPage.Padding = new System.Windows.Forms.Padding(3);
+            this.FunctionPage.Size = new System.Drawing.Size(310, 161);
+            this.FunctionPage.TabIndex = 0;
+            this.FunctionPage.Text = "기능";
+            this.FunctionPage.UseVisualStyleBackColor = true;
             // 
-            // newsList
+            // functionList
             // 
-            this.newsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.functionList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.newsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.news});
-            this.newsList.HideSelection = false;
-            this.newsList.Location = new System.Drawing.Point(0, 0);
-            this.newsList.Name = "newsList";
-            this.newsList.Size = new System.Drawing.Size(310, 161);
-            this.newsList.TabIndex = 0;
-            this.newsList.UseCompatibleStateImageBehavior = false;
-            this.newsList.View = System.Windows.Forms.View.List;
+            this.functionList.HideSelection = false;
+            this.functionList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4});
+            this.functionList.LargeImageList = this.iconList;
+            this.functionList.Location = new System.Drawing.Point(0, 0);
+            this.functionList.Margin = new System.Windows.Forms.Padding(0);
+            this.functionList.Name = "functionList";
+            this.functionList.Size = new System.Drawing.Size(310, 161);
+            this.functionList.TabIndex = 0;
+            this.functionList.UseCompatibleStateImageBehavior = false;
+            this.functionList.Click += FunctionList_Click;
             // 
-            // disclosurePage
+            // iconList
             // 
-            this.disclosurePage.Controls.Add(this.disclosureList);
-            this.disclosurePage.Location = new System.Drawing.Point(4, 25);
-            this.disclosurePage.Name = "disclosurePage";
-            this.disclosurePage.Padding = new System.Windows.Forms.Padding(3);
-            this.disclosurePage.Size = new System.Drawing.Size(310, 161);
-            this.disclosurePage.TabIndex = 1;
-            this.disclosurePage.Text = "공시";
-            this.disclosurePage.UseVisualStyleBackColor = true;
+            this.iconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("iconList.ImageStream")));
+            this.iconList.TransparentColor = System.Drawing.Color.Transparent;
+            this.iconList.Images.SetKeyName(0, "dart.png");
+            this.iconList.Images.SetKeyName(1, "naver.png");
+            this.iconList.Images.SetKeyName(2, "news.png");
+            this.iconList.Images.SetKeyName(3, "paxnet.png");
             // 
-            // disclosureList
+            // OptionPage
             // 
-            this.disclosureList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.disclosureList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.disclosure});
-            this.disclosureList.HideSelection = false;
-            this.disclosureList.Location = new System.Drawing.Point(0, 0);
-            this.disclosureList.Name = "disclosureList";
-            this.disclosureList.Size = new System.Drawing.Size(310, 161);
-            this.disclosureList.TabIndex = 0;
-            this.disclosureList.UseCompatibleStateImageBehavior = false;
-            this.disclosureList.View = System.Windows.Forms.View.List;
+            this.OptionPage.Location = new System.Drawing.Point(4, 25);
+            this.OptionPage.Name = "OptionPage";
+            this.OptionPage.Size = new System.Drawing.Size(310, 161);
+            this.OptionPage.TabIndex = 1;
+            this.OptionPage.Text = "옵션";
+            this.OptionPage.UseVisualStyleBackColor = true;
             // 
             // axKHOpenAPI1
             // 
@@ -1392,12 +1393,12 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "종합차트";
-            conditionTab.ResumeLayout(false);
+            conditionPage.ResumeLayout(false);
             this.dealTab.ResumeLayout(false);
-            this.userTab.ResumeLayout(false);
+            this.userPage.ResumeLayout(false);
             this.userInfoLayoutPanel.ResumeLayout(false);
             this.userInfoLayoutPanel.PerformLayout();
-            this.assetTab.ResumeLayout(false);
+            this.assetPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AssetChart)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -1407,9 +1408,8 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.SideLayoutPanel.ResumeLayout(false);
-            this.infoTab.ResumeLayout(false);
-            this.newsPage.ResumeLayout(false);
-            this.disclosurePage.ResumeLayout(false);
+            this.ActionTab.ResumeLayout(false);
+            this.FunctionPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).EndInit();
             this.ResumeLayout(false);
 
@@ -1450,11 +1450,11 @@
         private System.Windows.Forms.Label itemNameLabel;
         private System.Windows.Forms.Button conditionButton;
         private System.Windows.Forms.TableLayoutPanel SideLayoutPanel;
-        private System.Windows.Forms.TabPage assetTab;
+        private System.Windows.Forms.TabPage assetPage;
         private System.Windows.Forms.TabControl dealTab;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ListView stockList;
-        private System.Windows.Forms.TabPage userTab;
+        private System.Windows.Forms.TabPage userPage;
         private System.Windows.Forms.TableLayoutPanel userInfoLayoutPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -1501,13 +1501,11 @@
         private System.Windows.Forms.ColumnHeader stockName;
         private System.Windows.Forms.ColumnHeader upDownRate;
         private System.Windows.Forms.ColumnHeader volume;
-        private System.Windows.Forms.TabControl infoTab;
-        private System.Windows.Forms.TabPage newsPage;
-        private System.Windows.Forms.ListView newsList;
-        private System.Windows.Forms.TabPage disclosurePage;
-        private System.Windows.Forms.ListView disclosureList;
-        private System.Windows.Forms.ColumnHeader news;
-        private System.Windows.Forms.ColumnHeader disclosure;
+        private System.Windows.Forms.TabControl ActionTab;
+        private System.Windows.Forms.TabPage FunctionPage;
+        private System.Windows.Forms.TabPage OptionPage;
+        private System.Windows.Forms.ListView functionList;
+        private System.Windows.Forms.ImageList iconList;
     }
 }
 

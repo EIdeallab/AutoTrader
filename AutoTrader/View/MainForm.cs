@@ -20,6 +20,8 @@ namespace AutoTrader.View
         private Point MousePoint;
         private double MaxAxisY;
         private double MinAxisY;
+        private string endDate;
+        private string beginDate;
 
         public Presenter.StockPresenter Presenter { get; set; }
 
@@ -31,6 +33,11 @@ namespace AutoTrader.View
         {
             get { return mainChart; }
             set { mainChart = value; }
+        }
+        public Label ItemNameLabel
+        {
+            get { return itemNameLabel; }
+            set { itemNameLabel = value; }
         }
         public Label TotalStockLabel
         {
@@ -112,6 +119,11 @@ namespace AutoTrader.View
             get { return stockList; }
             set { stockList = value; }
         }
+        public ListView FunctionList
+        {
+            get { return functionList; }
+            set { functionList = value; }
+        }
         public ComboBox AccountListbox
         {
             get { return accountListbox; }
@@ -162,7 +174,6 @@ namespace AutoTrader.View
 
             if (axKHOpenAPI1.CommConnect() != 0)
                 System.Windows.Forms.MessageBox.Show("로그인 실패");
-
         }
 
         private void KHOpenAPI_OnEventConnect(object sender, _DKHOpenAPIEvents_OnEventConnectEvent e)
@@ -269,6 +280,15 @@ namespace AutoTrader.View
                 int startPosition = (int)e.Axis.ScaleView.ViewMinimum;
                 int endPosition = (int)e.Axis.ScaleView.ViewMaximum;
                 Presenter.UpdateChartAxis(startPosition, endPosition);
+                
+                try
+                {
+                    endDate = PriceSeries.Points[startPosition].AxisLabel;
+                    beginDate = PriceSeries.Points[endPosition].AxisLabel;
+                }
+                finally
+                { }
+                //Presenter.UpdateNews(currentStockCode, beginDate, endDate);
             }
         }
 
@@ -511,6 +531,27 @@ namespace AutoTrader.View
             currentStockCode = firstSelectedItem.Text;
             itemNameLabel.Text = axKHOpenAPI1.GetMasterCodeName(currentStockCode);
             Presenter.RequestDailyChart(currentStockCode);
+        }
+
+        private void FunctionList_Click(object sender, EventArgs e)
+        {
+            var firstSelectedItem = functionList.SelectedItems[0];
+            switch (firstSelectedItem.Text)
+            {
+                case "뉴스":
+                    Presenter.RequestNewsUrl(currentStockCode, beginDate, endDate);
+                    break;
+                case "네이버증권":
+                    Presenter.RequestNaverUrl(currentStockCode);
+                    break;
+                case "팍스넷":
+                    Presenter.RequestPaxnetUrl(currentStockCode);
+                    break;
+                case "공시정보":
+                    //Presenter.RequestDartUrl();
+                    break;
+
+            }
         }
     }
 }

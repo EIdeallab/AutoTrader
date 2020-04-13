@@ -18,6 +18,7 @@ namespace AutoTrader.View
         APIExtention kHOpenAPI { get; }
         Chart MainChart { get; set; }
 
+        Label ItemNameLabel { get; set; }
         Label TotalStockLabel { get; set; }
         Label DistribRatioLabel { get; set; }
         Label VolumeChangeLabel { get; set; }
@@ -35,6 +36,7 @@ namespace AutoTrader.View
         Label TotBuyLabel { get; set; }
         ListView AssetList { get; set; }
         ListView StockList { get; set; }
+        ListView FunctionList { get; set; }
         ComboBox AccountListbox { get; set; }
         Series PriceSeries { get; set; }
         Series VolumeSeries { get; set; }

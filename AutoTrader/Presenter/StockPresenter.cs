@@ -4,6 +4,7 @@ using System.Linq;
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
+using System.Diagnostics;
 using AutoTrader.View;
 using AutoTrader.Model;
 using AxKHOpenAPILib;
@@ -17,7 +18,7 @@ namespace AutoTrader.Presenter
         private readonly IConditionView conditionView;
         private readonly APIExtention apiModel;
 
-        List<PriceInfoEntity> priceInfoList = new List<PriceInfoEntity>();
+        List<PriceInfo> priceInfoList = new List<PriceInfo>();
 
         public StockPresenter(IMainView _mainView, IConditionView _conditionView)
         {
@@ -154,6 +155,28 @@ namespace AutoTrader.Presenter
             else
                 Console.WriteLine("계좌평가현황요청 실패");
         }
+
+        public void RequestNaverUrl(string stockCode)
+        {
+            Process.Start("https://finance.naver.com/item/main.nhn?code=" + stockCode);
+        }
+
+        public void RequestPaxnetUrl(string stockCode)
+        {
+            Process.Start("http://www.paxnet.co.kr/stock/analysis/main?abbrSymbol=" + stockCode);
+        }
+        
+        public void RequestNewsUrl(string stockCode, string beginDate, string endDate)
+        {
+            beginDate = beginDate.Replace('-', '.');
+            endDate = endDate.Replace('-', '.');
+            Process.Start("https://search.naver.com/search.naver?where=news&query=" + stockCode + "&pd=3&ds=" + beginDate + "&de=" + endDate);
+        }
+
+        public void RequestDart()
+        {
+            //TODO : api 요청 결과 파싱하여 별도의 뷰에 띄울것
+        }
         #endregion
 
         #region Update
@@ -249,7 +272,7 @@ namespace AutoTrader.Presenter
 
             for (int nIdx = 0; nIdx < nCnt; nIdx++)
             {
-                PriceInfoEntity entity = new PriceInfoEntity();
+                PriceInfo entity = new PriceInfo();
 
                 if (rqName == "주식분봉차트조회" || rqName == "주식틱봉차트조회")
                 {
@@ -600,6 +623,7 @@ namespace AutoTrader.Presenter
                     break;
             }
         }
+
         #endregion
     }
 }

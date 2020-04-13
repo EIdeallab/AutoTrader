@@ -7,7 +7,20 @@ using AxKHOpenAPILib;
 
 namespace AutoTrader
 {
-    public class PriceInfoEntity
+    public class NewsInfo
+    {
+        public string Date { get; set; }
+        public string Title { get; set; }
+        public string Link { get; set; }
+        public string Desc { get; set; }
+
+        public override string ToString()
+        {
+            return "일자=" + Date + "\n제목=" + Title + "\n링크 =" + Link+ "\n요약=" + Desc;
+        }
+    }
+
+    public class PriceInfo
     {
         public string Date { get; set; }
         public int Start { get; set; }
@@ -18,7 +31,7 @@ namespace AutoTrader
 
         public override string ToString()
         {
-            return "일자=" + Date + "시가 =" + Start + "고가 =" + Highest + "저가 =" + Lowest + "종가 =" + End + "거래량 =" + Volume;
+            return "일자=" + Date + "시가=" + Start + "고가=" + Highest + "저가=" + Lowest + "종가=" + End + "거래량=" + Volume;
         }
     }
 
