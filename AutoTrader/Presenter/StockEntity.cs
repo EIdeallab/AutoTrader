@@ -7,16 +7,16 @@ using AxKHOpenAPILib;
 
 namespace AutoTrader
 {
-    public class NewsInfo
+    public class DisclosureInfo
     {
         public string Date { get; set; }
         public string Title { get; set; }
-        public string Link { get; set; }
-        public string Desc { get; set; }
+        public string CorpCode { get; set; }
+        public string RCeptNum { get; set; }
 
         public override string ToString()
         {
-            return "일자=" + Date + "\n제목=" + Title + "\n링크 =" + Link+ "\n요약=" + Desc;
+            return "일자=" + Date + "\n제목=" + Title + "\n회사코드 =" + CorpCode + "\n접수일자=" + RCeptNum;
         }
     }
 

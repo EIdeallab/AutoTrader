@@ -29,3 +29,4 @@ C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Debug\AutoTrader.csp
 C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Debug\AutoTrader.exe
 C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Debug\AutoTrader.pdb
 C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Debug\AutoTrader.View.ConditionForm.resources
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Debug\AutoTrader.View.DisclosureForm.resources

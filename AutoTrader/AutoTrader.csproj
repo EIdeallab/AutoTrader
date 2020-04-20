@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\IStockModel.cs" />
-    <Compile Include="Presenter\NaverApi.cs" />
+    <Compile Include="Presenter\DartApi.cs" />
     <Compile Include="Presenter\Types.cs" />
     <Compile Include="Presenter\StockPresenter.cs" />
     <Compile Include="Presenter\APIExtention.cs">
@@ -57,6 +57,12 @@
     </Compile>
     <Compile Include="View\ConditionForm.Designer.cs">
       <DependentUpon>ConditionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DisclosureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DisclosureForm.Designer.cs">
+      <DependentUpon>DisclosureForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\IStockView.cs" />
     <Compile Include="View\MainForm.cs">
@@ -70,6 +76,9 @@
     <Compile Include="Presenter\StockEntity.cs" />
     <EmbeddedResource Include="View\ConditionForm.resx">
       <DependentUpon>ConditionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DisclosureForm.resx">
+      <DependentUpon>DisclosureForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

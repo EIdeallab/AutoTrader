@@ -171,6 +171,7 @@ namespace AutoTrader.View
             chartYLabel.MouseDown += Label_MouseDown;
             chartYLabel.MouseMove += Label_MouseMove;
             chartYLabel.MouseUp += Label_MouseUp;
+            functionList.Click += FunctionList_Click;
 
             if (axKHOpenAPI1.CommConnect() != 0)
                 System.Windows.Forms.MessageBox.Show("로그인 실패");
@@ -548,7 +549,7 @@ namespace AutoTrader.View
                     Presenter.RequestPaxnetUrl(currentStockCode);
                     break;
                 case "공시정보":
-                    //Presenter.RequestDartUrl();
+                    Presenter.RequestDart(currentStockCode, beginDate, endDate);
                     break;
 
             }

@@ -20,7 +20,8 @@ namespace AutoTrader
             
             var mainView = new View.MainForm();
             var conditionView = new View.ConditionForm();
-            var presenter = new Presenter.StockPresenter(mainView, conditionView);
+            var disclosureView = new View.DisclosureForm();
+            var presenter = new Presenter.StockPresenter(mainView, conditionView, disclosureView);
 
             Application.Run(mainView);
         }

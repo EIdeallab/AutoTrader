@@ -1352,7 +1352,6 @@
             this.functionList.Size = new System.Drawing.Size(310, 161);
             this.functionList.TabIndex = 0;
             this.functionList.UseCompatibleStateImageBehavior = false;
-            this.functionList.Click += FunctionList_Click;
             // 
             // iconList
             // 

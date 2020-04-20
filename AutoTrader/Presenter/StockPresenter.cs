@@ -16,16 +16,19 @@ namespace AutoTrader.Presenter
     {
         private readonly IMainView mainView;
         private readonly IConditionView conditionView;
+        private readonly IDisclosureView disclosureView;
         private readonly APIExtention apiModel;
 
         List<PriceInfo> priceInfoList = new List<PriceInfo>();
 
-        public StockPresenter(IMainView _mainView, IConditionView _conditionView)
+        public StockPresenter(IMainView _mainView, IConditionView _conditionView, IDisclosureView _disclosureView)
         {
             mainView = _mainView;
             conditionView = _conditionView;
+            disclosureView = _disclosureView;
             mainView.Presenter = this;
             conditionView.Presenter = this;
+            disclosureView.Presenter = this;
             apiModel = (APIExtention)mainView.kHOpenAPI;
         }
 
@@ -173,9 +176,15 @@ namespace AutoTrader.Presenter
             Process.Start("https://search.naver.com/search.naver?where=news&query=" + stockCode + "&pd=3&ds=" + beginDate + "&de=" + endDate);
         }
 
-        public void RequestDart()
+        public void RequestDart(string stockCode, string beginDate, string endDate)
         {
-            //TODO : api 요청 결과 파싱하여 별도의 뷰에 띄울것
+            DartApi.RequestDisclosure(stockCode, beginDate, endDate, out List<DisclosureInfo> infolist);
+            SetDisclosureView(infolist);
+        }
+
+        public void RequestDartViewer(string rceptNum)
+        {
+            DartApi.RequestViewer(rceptNum);
         }
         #endregion
 
@@ -545,7 +554,22 @@ namespace AutoTrader.Presenter
             conditionView.ConditionListBox.DataSource = list;
             ((Form)conditionView).Show();
         }
-        
+
+        public void SetDisclosureView(List<DisclosureInfo> infos)
+        {
+            disclosureView.DisclosureListView.BeginUpdate();
+            foreach (DisclosureInfo info in infos)
+            {
+                ListViewItem item = new ListViewItem(info.Title);
+                item.SubItems.Add(info.Date);
+                item.SubItems.Add(info.CorpCode);
+                item.SubItems.Add(info.RCeptNum);
+                disclosureView.DisclosureListView.Items.Add(item);
+            }
+            disclosureView.DisclosureListView.EndUpdate();
+            ((Form)disclosureView).Show();
+        }
+
         public void SendCondition(int key, string condition)
         {
             apiModel.SendCondition("0", condition, key, 0);

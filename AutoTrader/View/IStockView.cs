@@ -52,4 +52,10 @@ namespace AutoTrader.View
         Button ConformConditionButton { get; set; }
         Button CancelConditionButton { get; set; }
     }
+
+    public interface IDisclosureView
+    {
+        Presenter.StockPresenter Presenter { get; set; }
+        ListView DisclosureListView { get; set; }
+    }
 }
