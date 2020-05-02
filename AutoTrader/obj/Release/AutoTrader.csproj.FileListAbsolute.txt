@@ -1,0 +1,17 @@
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\bin\Release\AutoTrader.exe.config
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\bin\Release\AutoTrader.exe
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\bin\Release\AutoTrader.pdb
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\bin\Release\Interop.KHOpenAPILib.dll
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\bin\Release\AxInterop.KHOpenAPILib.dll
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.csprojAssemblyReference.cache
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\Interop.KHOpenAPILib.dll
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AxInterop.KHOpenAPILib.dll
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.csproj.ResolveComReference.cache
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.View.ConditionForm.resources
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.View.DisclosureForm.resources
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.View.MainForm.resources
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.Properties.Resources.resources
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.csproj.GenerateResource.cache
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.csproj.CoreCompileInputs.cache
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.exe
+C:\Users\adsha\Desktop\autoTrader\AutoTrader\AutoTrader\obj\Release\AutoTrader.pdb

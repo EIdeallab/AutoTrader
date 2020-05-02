@@ -13,7 +13,7 @@ namespace AutoTrader.View
     {
         private string currentStockCode = "";
         private int selectedTickUnit = 1;
-        private int selectedMinuteUnit = 1;
+        private int selectedMinuteUnit = 240;
         private bool isMinuteSelected = false;
         private bool isTickSelected = false;
         private bool isPriceResize = false;
@@ -28,6 +28,10 @@ namespace AutoTrader.View
         public APIExtention kHOpenAPI
         {
             get { return axKHOpenAPI1; }
+        }
+        public int SelectedMinuteUnit
+        {
+            get { return selectedMinuteUnit; }
         }
         public Chart MainChart
         {
@@ -219,6 +223,7 @@ namespace AutoTrader.View
             n30Button.Enabled = isEnable;
             n45Button.Enabled = isEnable;
             n60Button.Enabled = isEnable;
+            n240Button.Enabled = isEnable;
 
             isMinuteSelected = isEnable;
             isTickSelected = false;
@@ -365,7 +370,8 @@ namespace AutoTrader.View
         {
             currentStockCode = this.itemCodeTextBox.Text.Trim();
             itemNameLabel.Text = axKHOpenAPI1.GetMasterCodeName(currentStockCode);
-            Presenter.RequestDailyChart(currentStockCode);
+            TurnNButtonsEnabled(true);
+            Presenter.RequestMinuteChart(currentStockCode, selectedMinuteUnit);
         }
 
         private void DailyButton_Click(object sender, EventArgs e)
@@ -416,6 +422,7 @@ namespace AutoTrader.View
                 n15Button.Enabled = false;
                 n45Button.Enabled = false;
                 n60Button.Enabled = false;
+                n240Button.Enabled = false;
 
                 isMinuteSelected = false;
                 isTickSelected = true;
@@ -521,6 +528,15 @@ namespace AutoTrader.View
             }
         }
 
+        private void N240Button_Click(object sender, EventArgs e)
+        {
+            if (isMinuteSelected)
+            {
+                selectedMinuteUnit = 240;
+                Presenter.RequestMinuteChart(currentStockCode, selectedMinuteUnit);
+            }
+        }
+
         private void ConditionButton_Click(object sender, EventArgs e)
         {
             axKHOpenAPI1.GetConditionLoad();
@@ -531,7 +547,8 @@ namespace AutoTrader.View
             var firstSelectedItem = stockList.SelectedItems[0];
             currentStockCode = firstSelectedItem.Text;
             itemNameLabel.Text = axKHOpenAPI1.GetMasterCodeName(currentStockCode);
-            Presenter.RequestDailyChart(currentStockCode);
+            TurnNButtonsEnabled(true);
+            Presenter.RequestMinuteChart(currentStockCode, selectedMinuteUnit);
         }
 
         private void FunctionList_Click(object sender, EventArgs e)

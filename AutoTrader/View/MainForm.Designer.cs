@@ -106,6 +106,7 @@
             this.n30Button = new System.Windows.Forms.Button();
             this.n45Button = new System.Windows.Forms.Button();
             this.n60Button = new System.Windows.Forms.Button();
+            this.n240Button = new System.Windows.Forms.Button();
             this.itemNameLabel = new System.Windows.Forms.Label();
             this.conditionButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -727,7 +728,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.requestButton, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.dailyButton, 4, 0);
@@ -744,6 +745,7 @@
             this.tableLayoutPanel2.Controls.Add(this.n30Button, 14, 0);
             this.tableLayoutPanel2.Controls.Add(this.n45Button, 15, 0);
             this.tableLayoutPanel2.Controls.Add(this.n60Button, 16, 0);
+            this.tableLayoutPanel2.Controls.Add(this.n240Button, 17, 0);
             this.tableLayoutPanel2.Controls.Add(this.itemNameLabel, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.conditionButton, 2, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 2);
@@ -829,10 +831,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n1Button.Enabled = false;
-            this.n1Button.Location = new System.Drawing.Point(541, 1);
-            this.n1Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n1Button.Location = new System.Drawing.Point(540, 0);
+            this.n1Button.Margin = new System.Windows.Forms.Padding(0);
             this.n1Button.Name = "n1Button";
-            this.n1Button.Size = new System.Drawing.Size(38, 32);
+            this.n1Button.Size = new System.Drawing.Size(40, 34);
             this.n1Button.TabIndex = 11;
             this.n1Button.Text = "1";
             this.n1Button.UseVisualStyleBackColor = true;
@@ -844,10 +846,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n3Button.Enabled = false;
-            this.n3Button.Location = new System.Drawing.Point(581, 1);
-            this.n3Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n3Button.Location = new System.Drawing.Point(580, 0);
+            this.n3Button.Margin = new System.Windows.Forms.Padding(0);
             this.n3Button.Name = "n3Button";
-            this.n3Button.Size = new System.Drawing.Size(38, 32);
+            this.n3Button.Size = new System.Drawing.Size(40, 34);
             this.n3Button.TabIndex = 12;
             this.n3Button.Text = "3";
             this.n3Button.UseVisualStyleBackColor = true;
@@ -859,10 +861,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n5Button.Enabled = false;
-            this.n5Button.Location = new System.Drawing.Point(621, 1);
-            this.n5Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n5Button.Location = new System.Drawing.Point(620, 0);
+            this.n5Button.Margin = new System.Windows.Forms.Padding(0);
             this.n5Button.Name = "n5Button";
-            this.n5Button.Size = new System.Drawing.Size(38, 32);
+            this.n5Button.Size = new System.Drawing.Size(40, 34);
             this.n5Button.TabIndex = 13;
             this.n5Button.Text = "5";
             this.n5Button.UseVisualStyleBackColor = true;
@@ -875,10 +877,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n10Button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.n10Button.Enabled = false;
-            this.n10Button.Location = new System.Drawing.Point(661, 1);
-            this.n10Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n10Button.Location = new System.Drawing.Point(660, 0);
+            this.n10Button.Margin = new System.Windows.Forms.Padding(0);
             this.n10Button.Name = "n10Button";
-            this.n10Button.Size = new System.Drawing.Size(38, 32);
+            this.n10Button.Size = new System.Drawing.Size(40, 34);
             this.n10Button.TabIndex = 14;
             this.n10Button.Text = "10";
             this.n10Button.UseVisualStyleBackColor = true;
@@ -891,10 +893,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n15Button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.n15Button.Enabled = false;
-            this.n15Button.Location = new System.Drawing.Point(701, 1);
-            this.n15Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n15Button.Location = new System.Drawing.Point(700, 0);
+            this.n15Button.Margin = new System.Windows.Forms.Padding(0);
             this.n15Button.Name = "n15Button";
-            this.n15Button.Size = new System.Drawing.Size(38, 32);
+            this.n15Button.Size = new System.Drawing.Size(40, 34);
             this.n15Button.TabIndex = 15;
             this.n15Button.Text = "15";
             this.n15Button.UseVisualStyleBackColor = true;
@@ -906,10 +908,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n30Button.Enabled = false;
-            this.n30Button.Location = new System.Drawing.Point(741, 1);
-            this.n30Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n30Button.Location = new System.Drawing.Point(740, 0);
+            this.n30Button.Margin = new System.Windows.Forms.Padding(0);
             this.n30Button.Name = "n30Button";
-            this.n30Button.Size = new System.Drawing.Size(38, 32);
+            this.n30Button.Size = new System.Drawing.Size(40, 34);
             this.n30Button.TabIndex = 16;
             this.n30Button.Text = "30";
             this.n30Button.UseVisualStyleBackColor = true;
@@ -921,10 +923,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n45Button.Enabled = false;
-            this.n45Button.Location = new System.Drawing.Point(781, 1);
-            this.n45Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n45Button.Location = new System.Drawing.Point(780, 0);
+            this.n45Button.Margin = new System.Windows.Forms.Padding(0);
             this.n45Button.Name = "n45Button";
-            this.n45Button.Size = new System.Drawing.Size(38, 32);
+            this.n45Button.Size = new System.Drawing.Size(40, 34);
             this.n45Button.TabIndex = 17;
             this.n45Button.Text = "45";
             this.n45Button.UseVisualStyleBackColor = true;
@@ -936,14 +938,29 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.n60Button.Enabled = false;
-            this.n60Button.Location = new System.Drawing.Point(821, 1);
-            this.n60Button.Margin = new System.Windows.Forms.Padding(1);
+            this.n60Button.Location = new System.Drawing.Point(820, 0);
+            this.n60Button.Margin = new System.Windows.Forms.Padding(0);
             this.n60Button.Name = "n60Button";
-            this.n60Button.Size = new System.Drawing.Size(38, 32);
+            this.n60Button.Size = new System.Drawing.Size(40, 34);
             this.n60Button.TabIndex = 18;
             this.n60Button.Text = "60";
             this.n60Button.UseVisualStyleBackColor = true;
             this.n60Button.Click += new System.EventHandler(this.N60Button_Click);
+            // 
+            // n240Button
+            // 
+            this.n240Button.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.n240Button.Enabled = false;
+            this.n240Button.Location = new System.Drawing.Point(860, 0);
+            this.n240Button.Margin = new System.Windows.Forms.Padding(0);
+            this.n240Button.Name = "n240Button";
+            this.n240Button.Size = new System.Drawing.Size(40, 34);
+            this.n240Button.TabIndex = 21;
+            this.n240Button.Text = "240";
+            this.n240Button.UseVisualStyleBackColor = true;
+            this.n240Button.Click += new System.EventHandler(this.N240Button_Click);
             // 
             // itemNameLabel
             // 
@@ -1505,6 +1522,7 @@
         private System.Windows.Forms.TabPage OptionPage;
         private System.Windows.Forms.ListView functionList;
         private System.Windows.Forms.ImageList iconList;
+        private System.Windows.Forms.Button n240Button;
     }
 }
 

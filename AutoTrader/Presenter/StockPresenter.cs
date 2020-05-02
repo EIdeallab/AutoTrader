@@ -18,7 +18,7 @@ namespace AutoTrader.Presenter
         private readonly IConditionView conditionView;
         private readonly IDisclosureView disclosureView;
         private readonly APIExtention apiModel;
-
+        
         List<PriceInfo> priceInfoList = new List<PriceInfo>();
 
         public StockPresenter(IMainView _mainView, IConditionView _conditionView, IDisclosureView _disclosureView)
@@ -79,6 +79,10 @@ namespace AutoTrader.Presenter
 
         public void RequestMinuteChart(string currentStockCode, int minuteUnit)
         {
+            if(minuteUnit > 60)
+            {
+                minuteUnit = 60;
+            }
             apiModel.SetInputValue("종목코드", currentStockCode);
             apiModel.SetInputValue("틱범위", minuteUnit + "");
             apiModel.SetInputValue("수정주가구분", "1");
@@ -261,13 +265,12 @@ namespace AutoTrader.Presenter
         public void SetChartInfo(string trCode, string rqName)
         {
             apiModel.SetRequestType(trCode, rqName);
-            int nCnt = apiModel.GetRepeatCnt(trCode, rqName);
+            
             string stockCode = apiModel.GetRequestValue<string>("종목코드");
 
             RequestStockInfo(stockCode);
             RequestOrderBook(stockCode);
-
-            priceInfoList.Clear();
+            
             mainView.PriceSeries.Points.Clear();
             mainView.VolumeSeries.Points.Clear();
 
@@ -276,8 +279,17 @@ namespace AutoTrader.Presenter
             else
                 mainView.MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0,K";
 
-            int maxValue = 0;
-            int minValue = int.MaxValue;
+            ParseChartData(trCode, rqName, out int minValue, out int maxValue);
+            MergeTimeSeries();
+            SetChartSeries(minValue, maxValue);
+        }
+
+        public void ParseChartData(string trCode, string rqName, out int minValue, out int maxValue)
+        {
+            priceInfoList.Clear();
+            int nCnt = apiModel.GetRepeatCnt(trCode, rqName);
+            maxValue = 0;
+            minValue = int.MaxValue;
 
             for (int nIdx = 0; nIdx < nCnt; nIdx++)
             {
@@ -309,7 +321,73 @@ namespace AutoTrader.Presenter
                     maxValue = entity.Highest;
                 if (entity.Lowest < minValue)
                     minValue = entity.Lowest;
+            }
 
+        }
+
+        public void MergeTimeSeries()
+        {
+            if (mainView.SelectedMinuteUnit > 60)
+            {
+                List<PriceInfo> mergedInfoList = new List<PriceInfo>();
+                int stride = mainView.SelectedMinuteUnit / 60;
+
+                for (int nIdx = 0; nIdx < priceInfoList.Count; nIdx += stride)
+                {
+                    PriceInfo mergedInfo = new PriceInfo();
+
+                    // 4시간봉 관련하여 임시 처리 
+                    if (stride == 4)
+                    {
+                        stride = 3;
+                    }
+                    else if (stride == 3)
+                    {
+                        stride = 4;
+                    }
+                    // 인덱스 초과 처리
+                    if (priceInfoList.Count <= nIdx + stride)
+                    {
+                        stride = priceInfoList.Count - nIdx;
+                    }
+
+                    for (int n = 0; n < stride; n++)
+                    {
+                        mergedInfo.Volume += priceInfoList[nIdx + n].Volume;
+
+                        if (n == 0)
+                        {
+                            mergedInfo.End = priceInfoList[nIdx + n].End;
+                            mergedInfo.Highest = priceInfoList[nIdx + n].Highest;
+                            mergedInfo.Lowest = priceInfoList[nIdx + n].Lowest;
+                        }
+                        if(n == stride - 1)
+                        {
+                            mergedInfo.Date = priceInfoList[nIdx + n].Date;
+                            mergedInfo.Start = priceInfoList[nIdx + n].Start;
+                        }
+
+                        if (mergedInfo.Highest < priceInfoList[nIdx + n].Highest)
+                        {
+                            mergedInfo.Highest = priceInfoList[nIdx + n].Highest;
+                        }
+                        if(mergedInfo.Lowest > priceInfoList[nIdx + n].Lowest)
+                        {
+                            mergedInfo.Lowest = priceInfoList[nIdx + n].Lowest;
+                        }
+                    }
+                    mergedInfoList.Add(mergedInfo);
+                }
+                priceInfoList = mergedInfoList;
+            }
+
+        }
+
+        public void SetChartSeries(int minValue, int maxValue)
+        {
+            for (int nIdx = 0; nIdx < priceInfoList.Count; nIdx++)
+            {
+                PriceInfo entity = priceInfoList[nIdx];
                 // adding date and high
                 mainView.PriceSeries.Points.AddXY(entity.Date, entity.Highest);
                 mainView.PriceSeries.Points[nIdx].YValues[1] = entity.Lowest;
@@ -323,7 +401,7 @@ namespace AutoTrader.Presenter
 
             ChartArea priceChartArea = mainView.MainChart.ChartAreas["PriceChartArea"];
 
-            if (nCnt > 0)
+            if (priceInfoList.Count > 0)
             {
                 priceChartArea.AxisX.ScaleView.ZoomReset();
 
@@ -339,6 +417,7 @@ namespace AutoTrader.Presenter
 
                 HighlightArea(HighlightOption.MFI);
             }
+
         }
 
         public void HighlightArea(HighlightOption option)
@@ -368,19 +447,27 @@ namespace AutoTrader.Presenter
                 double minusRmf = 0;
                 for (int j=0; j< period; j++)
                 {
-                    double befEnd = Candles[i + j + 1].YValues[3];
-                    DataPoint candle = Candles[i + j];
-                    DataPoint volume = Volumes[i + j];
-                    double high = candle.YValues[0];
-                    double low = candle.YValues[1];
-                    double start = candle.YValues[2];
-                    double end = candle.YValues[3];
+                    DataPoint candleB = Candles[i + j + 1];
+                    DataPoint volumeB = Volumes[i + j + 1];
+                    double highB = candleB.YValues[0];
+                    double lowB = candleB.YValues[1];
+                    double startB = candleB.YValues[2];
+                    double endB = candleB.YValues[2];
 
-                    double tp = (high + low + end)/3;
-                    double rmf = tp * volume.YValues[0];
+                    double tpB = (highB + lowB + endB) / 3;
 
-                    plusRmf += (befEnd < end) ? rmf : 0;
-                    minusRmf += (befEnd > end) ? rmf : 0;
+                    DataPoint candleA = Candles[i + j];
+                    DataPoint volumeA = Volumes[i + j];
+                    double highA = candleA.YValues[0];
+                    double lowA = candleA.YValues[1];
+                    double startA = candleA.YValues[2];
+                    double endA = candleA.YValues[3];
+                    
+                    double tpA = (highA + lowA + endA)/3;
+                    double rmf = tpA * volumeA.YValues[0];
+
+                    plusRmf += (tpB < tpA) ? rmf : 0;
+                    minusRmf += (tpB > tpA) ? rmf : 0;
                 }
 
                 double mfr = plusRmf / minusRmf;
