@@ -175,9 +175,10 @@ namespace AutoTrader.Presenter
         
         public void RequestNewsUrl(string stockCode, string beginDate, string endDate)
         {
+            string stockName = apiModel.GetMasterCodeName(stockCode);
             beginDate = beginDate.Replace('-', '.');
             endDate = endDate.Replace('-', '.');
-            Process.Start("https://search.naver.com/search.naver?where=news&query=" + stockCode + "&pd=3&ds=" + beginDate + "&de=" + endDate);
+            Process.Start("https://search.naver.com/search.naver?where=news&query=" + stockName + "&pd=3&ds=" + beginDate + "&de=" + endDate);
         }
 
         public void RequestDart(string stockCode, string beginDate, string endDate)
@@ -273,6 +274,7 @@ namespace AutoTrader.Presenter
             
             mainView.PriceSeries.Points.Clear();
             mainView.VolumeSeries.Points.Clear();
+            mainView.IndicatorSeries.Points.Clear();
 
             if (rqName == "주식분봉차트조회" || rqName == "주식틱봉차트조회")
                 mainView.MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0";
@@ -395,6 +397,7 @@ namespace AutoTrader.Presenter
                 mainView.PriceSeries.Points[nIdx].YValues[3] = entity.End;
                 mainView.PriceSeries.Points[nIdx].ToolTip = entity.ToString();
                 mainView.VolumeSeries.Points.AddXY(entity.Date, entity.Volume);
+                mainView.VolumeSeries.Points[nIdx].Color = Color.FromArgb(128, 0, 40, 250);
                 mainView.VolumeSeries.Points[nIdx].ToolTip = "일자 : " + entity.Date + "\n"
                                                     + "거래량 : " + String.Format("{0:#,###}", entity.Volume);
             }
@@ -434,7 +437,9 @@ namespace AutoTrader.Presenter
 
         public void CalcMFI(int period, int drawRange)
         {
-            mainView.MainChart.ChartAreas[0].AxisX.StripLines.Clear();
+            mainView.MainChart.ChartAreas[1].AxisX.StripLines.Clear();
+            mainView.MainChart.ChartAreas[1].AxisY2.Maximum = 100;
+            mainView.MainChart.ChartAreas[1].AxisY2.Minimum = 0;
             DataPointCollection Candles = mainView.PriceSeries.Points;
             DataPointCollection Volumes = mainView.VolumeSeries.Points;
 
@@ -451,8 +456,7 @@ namespace AutoTrader.Presenter
                     DataPoint volumeB = Volumes[i + j + 1];
                     double highB = candleB.YValues[0];
                     double lowB = candleB.YValues[1];
-                    double startB = candleB.YValues[2];
-                    double endB = candleB.YValues[2];
+                    double endB = candleB.YValues[3];
 
                     double tpB = (highB + lowB + endB) / 3;
 
@@ -460,7 +464,6 @@ namespace AutoTrader.Presenter
                     DataPoint volumeA = Volumes[i + j];
                     double highA = candleA.YValues[0];
                     double lowA = candleA.YValues[1];
-                    double startA = candleA.YValues[2];
                     double endA = candleA.YValues[3];
                     
                     double tpA = (highA + lowA + endA)/3;
@@ -473,22 +476,25 @@ namespace AutoTrader.Presenter
                 double mfr = plusRmf / minusRmf;
                 double mfi = 100 - (100 / (1 + mfr));
                 
-                if (mfi < drawRange)
+                if (mfi <= drawRange)
                 {
                     StripLine oversell = new StripLine();
-                    oversell.BackColor = Color.DeepSkyBlue;
+                    oversell.BackColor = Color.FromArgb(145, 10, 40, 250);
                     oversell.StripWidth = 1;
                     oversell.IntervalOffset = i;
-                    mainView.MainChart.ChartAreas[0].AxisX.StripLines.Add(oversell);
+                    mainView.MainChart.ChartAreas[1].AxisX.StripLines.Add(oversell);
                 }
-                else if(mfi > 100 - drawRange)
+                else if(mfi >= 100 - drawRange)
                 {
                     StripLine overbought = new StripLine();
-                    overbought.BackColor = Color.OrangeRed;
+                    overbought.BackColor = Color.FromArgb(145, 250, 40, 40);
                     overbought.StripWidth = 1;
                     overbought.IntervalOffset = i;
-                    mainView.MainChart.ChartAreas[0].AxisX.StripLines.Add(overbought);
+                    mainView.MainChart.ChartAreas[1].AxisX.StripLines.Add(overbought);
                 }
+
+                mainView.IndicatorSeries.Points.AddXY(Candles[i].AxisLabel, mfi);
+                mainView.IndicatorSeries.Points[i].Color = Color.FromArgb(255, 20, 20, 20);
             }
         }
 

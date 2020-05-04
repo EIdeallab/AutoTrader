@@ -37,6 +37,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "뉴스",
             ""}, "news.png");
@@ -1068,8 +1069,14 @@
             series3.ChartArea = "volumeChartArea";
             series3.Name = "volumeSeries";
             series3.YValuesPerPoint = 4;
+            series4.ChartArea = "volumeChartArea";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Name = "indicatorSeries";
+            series4.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series4.YValuesPerPoint = 4;
             this.mainChart.Series.Add(series2);
             this.mainChart.Series.Add(series3);
+            this.mainChart.Series.Add(series4);
             this.mainChart.Size = new System.Drawing.Size(954, 549);
             this.mainChart.TabIndex = 1;
             this.mainChart.Text = "chart1";

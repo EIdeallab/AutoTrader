@@ -41,6 +41,7 @@ namespace AutoTrader.View
         ComboBox AccountListbox { get; set; }
         Series PriceSeries { get; set; }
         Series VolumeSeries { get; set; }
+        Series IndicatorSeries { get; set; }
         Series AskSeries { get; set; }
         Series BidSeries { get; set; }
     }

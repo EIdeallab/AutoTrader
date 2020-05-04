@@ -136,6 +136,7 @@ namespace AutoTrader.View
 
         public Series VolumeSeries { get; set; }
         public Series PriceSeries { get; set; }
+        public Series IndicatorSeries { get; set; }
         public Series AskSeries { get; set; }
         public Series BidSeries { get; set; }
 
@@ -147,6 +148,8 @@ namespace AutoTrader.View
             PriceSeries["PriceUpColor"] = "Red";
             PriceSeries["PriceDownColor"] = "Blue";
             VolumeSeries = mainChart.Series["volumeSeries"];
+            IndicatorSeries = mainChart.Series["indicatorSeries"];
+
             //AskSeries = OrderBook.Series["askSeries"];
             //BidSeries = OrderBook.Series["bidSeries"];
 
@@ -286,15 +289,6 @@ namespace AutoTrader.View
                 int startPosition = (int)e.Axis.ScaleView.ViewMinimum;
                 int endPosition = (int)e.Axis.ScaleView.ViewMaximum;
                 Presenter.UpdateChartAxis(startPosition, endPosition);
-                
-                try
-                {
-                    endDate = PriceSeries.Points[startPosition].AxisLabel;
-                    beginDate = PriceSeries.Points[endPosition].AxisLabel;
-                }
-                finally
-                { }
-                //Presenter.UpdateNews(currentStockCode, beginDate, endDate);
             }
         }
 
