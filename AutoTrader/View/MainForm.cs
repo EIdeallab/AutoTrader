@@ -20,8 +20,8 @@ namespace AutoTrader.View
         private Point MousePoint;
         private double MaxAxisY;
         private double MinAxisY;
-        private string endDate;
-        private string beginDate;
+        private string endDate = "";
+        private string beginDate = "";
 
         public Presenter.StockPresenter Presenter { get; set; }
 
@@ -132,6 +132,16 @@ namespace AutoTrader.View
         {
             get { return accountListbox; }
             set { accountListbox = value; }
+        }
+        public string BeginDate
+        {
+            get { return beginDate; }
+            set { beginDate = value; }
+        }
+        public string EndDate
+        {
+            get { return endDate; }
+            set { endDate = value; }
         }
 
         public Series VolumeSeries { get; set; }
@@ -282,6 +292,7 @@ namespace AutoTrader.View
             }
         }
 
+
         private void Chart_AxisViewChanged(object sender, ViewEventArgs e)
         {
             if (sender.Equals(mainChart))
@@ -289,6 +300,7 @@ namespace AutoTrader.View
                 int startPosition = (int)e.Axis.ScaleView.ViewMinimum;
                 int endPosition = (int)e.Axis.ScaleView.ViewMaximum;
                 Presenter.UpdateChartAxis(startPosition, endPosition);
+                Presenter.SetViewPeriod(startPosition, endPosition);
             }
         }
 

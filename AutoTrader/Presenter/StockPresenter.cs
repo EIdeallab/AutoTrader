@@ -416,11 +416,34 @@ namespace AutoTrader.Presenter
                     int startPosition = (int)priceChartArea.AxisX.ScaleView.ViewMinimum;
                     int endPosition = (int)priceChartArea.AxisX.ScaleView.ViewMaximum;
                     UpdateChartAxis(startPosition, endPosition);
+                    SetViewPeriod(startPosition, endPosition);
                 }
 
                 HighlightArea(HighlightOption.MFI);
             }
 
+        }
+
+        public void SetViewPeriod(int startPosition, int endPosition)
+        {
+            DataPoint end = mainView.PriceSeries.Points.ElementAtOrDefault(startPosition);
+            DataPoint begin = mainView.PriceSeries.Points.ElementAtOrDefault(endPosition);
+            if (begin == null)
+            {
+                mainView.BeginDate = mainView.PriceSeries.Points.LastOrDefault().AxisLabel;
+            }
+            else
+            {
+                mainView.BeginDate = begin.AxisLabel;
+            }
+            if (end == null)
+            {
+                mainView.EndDate = mainView.PriceSeries.Points.FirstOrDefault().AxisLabel;
+            }
+            else
+            {
+                mainView.EndDate = end.AxisLabel;
+            }
         }
 
         public void HighlightArea(HighlightOption option)

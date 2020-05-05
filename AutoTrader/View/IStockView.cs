@@ -18,6 +18,9 @@ namespace AutoTrader.View
         APIExtention kHOpenAPI { get; }
         Chart MainChart { get; set; }
 
+        string BeginDate { get; set; }
+        string EndDate { get; set; }
+
         int SelectedMinuteUnit { get; }
         Label ItemNameLabel { get; set; }
         Label TotalStockLabel { get; set; }
