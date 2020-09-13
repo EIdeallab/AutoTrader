@@ -13,7 +13,9 @@ namespace AutoTrader.View
     {
         private string currentStockCode = "";
         private int selectedTickUnit = 1;
-        private int selectedMinuteUnit = 240;
+        private int selectedMinuteUnit = 0;
+        private string selectedTermUnit = "DAY";
+
         private bool isMinuteSelected = false;
         private bool isTickSelected = false;
         private bool isPriceResize = false;
@@ -384,8 +386,10 @@ namespace AutoTrader.View
         {
             if (currentStockCode.Length > 0)
             {
+                selectedMinuteUnit = 0;
+                selectedTermUnit = "DAY";
                 TurnNButtonsEnabled(false);
-                Presenter.RequestDailyChart(currentStockCode);
+                Presenter.RequestTermChart(currentStockCode, selectedTermUnit);
             }
         }
 
@@ -393,8 +397,10 @@ namespace AutoTrader.View
         {
             if (currentStockCode.Length > 0)
             {
+                selectedMinuteUnit = 0;
+                selectedTermUnit = "WEEK";
                 TurnNButtonsEnabled(false);
-                Presenter.RequestWeeklyChart(currentStockCode);
+                Presenter.RequestTermChart(currentStockCode, selectedTermUnit);
             }
         }
 
@@ -402,8 +408,10 @@ namespace AutoTrader.View
         {
             if (currentStockCode.Length > 0)
             {
+                selectedMinuteUnit = 0;
+                selectedTermUnit = "MONTH";
                 TurnNButtonsEnabled(false);
-                Presenter.RequestMonthlyChart(currentStockCode);
+                Presenter.RequestTermChart(currentStockCode, selectedTermUnit);
             }
         }
 
@@ -420,6 +428,7 @@ namespace AutoTrader.View
         {
             if (currentStockCode.Length > 0)
             {
+                selectedMinuteUnit = 0;
                 n1Button.Enabled = true;
                 n3Button.Enabled = true;
                 n5Button.Enabled = true;
@@ -553,8 +562,18 @@ namespace AutoTrader.View
             var firstSelectedItem = stockList.SelectedItems[0];
             currentStockCode = firstSelectedItem.Text;
             itemNameLabel.Text = axKHOpenAPI1.GetMasterCodeName(currentStockCode);
-            TurnNButtonsEnabled(true);
-            Presenter.RequestMinuteChart(currentStockCode, selectedMinuteUnit);
+            if (isMinuteSelected)
+            {
+                Presenter.RequestMinuteChart(currentStockCode, selectedMinuteUnit);
+            }
+            else if (isTickSelected)
+            {
+                Presenter.RequestTickChart(currentStockCode, selectedTickUnit);
+            }
+            else
+            {
+                Presenter.RequestTermChart(currentStockCode, selectedTermUnit);
+            }
         }
 
         private void FunctionList_Click(object sender, EventArgs e)

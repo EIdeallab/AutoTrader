@@ -33,50 +33,43 @@ namespace AutoTrader.Presenter
         }
 
         #region Request
-        public void RequestDailyChart(string currentStockCode)
+        public void RequestTermChart(string currentStockCode, string termUnit)
         {
             apiModel.SetInputValue("종목코드", currentStockCode);
             apiModel.SetInputValue("기준일자", DateTime.Now.ToString("yyyyMMdd"));
             apiModel.SetInputValue("수정주가구분", "1");
 
-            int nRet = apiModel.CommRqData("주식일봉차트조회", "OPT10081", 0, "1002");
+            string rqName = "";
+            string trCode = "";
+
+            if (termUnit == "DAY")
+            {
+                rqName = "주식일봉차트조회";
+                trCode = "OPT10081";
+            }
+            else if(termUnit == "WEEK")
+            {
+                rqName = "주식주봉차트조회";
+                trCode = "OPT10082";
+            }
+            else if (termUnit == "MONTH")
+            {
+                rqName = "주식월봉차트조회";
+                trCode = "OPT10083";
+            }
+            else
+            {
+                Debug.Assert(false);
+            }
+
+            int nRet = apiModel.CommRqData(rqName, trCode, 0, "1002");
 
             if (nRet == 0)
                 Console.WriteLine("주식 일봉 정보요청 성공");
             else
                 Console.WriteLine("주식 일봉 정보요청 실패");
         }
-
-        public void RequestWeeklyChart(string currentStockCode)
-        {
-            apiModel.SetInputValue("종목코드", currentStockCode);
-            apiModel.SetInputValue("기준일자", DateTime.Now.ToString("yyyyMMdd"));
-            apiModel.SetInputValue("끝일자", "");
-            apiModel.SetInputValue("수정주가구분", "1");
-
-            int nRet = apiModel.CommRqData("주식주봉차트조회", "OPT10082", 0, "1002");
-
-            if (nRet == 0)
-                Console.WriteLine("주식 주봉 정보요청 성공");
-            else
-                Console.WriteLine("주식 주봉 정보요청 실패");
-        }
-
-        public void RequestMonthlyChart(string currentStockCode)
-        {
-            apiModel.SetInputValue("종목코드", currentStockCode);
-            apiModel.SetInputValue("기준일자", DateTime.Now.ToString("yyyyMMdd"));
-            apiModel.SetInputValue("끝일자", "");
-            apiModel.SetInputValue("수정주가구분", "1");
-
-            int nRet = apiModel.CommRqData("주식월봉차트조회", "OPT10083", 0, "1002");
-
-            if (nRet == 0)
-                Console.WriteLine("주식 월봉 정보요청 성공");
-            else
-                Console.WriteLine("주식 월봉 정보요청 실패");
-        }
-
+        
         public void RequestMinuteChart(string currentStockCode, int minuteUnit)
         {
             if(minuteUnit > 60)
@@ -266,20 +259,24 @@ namespace AutoTrader.Presenter
         public void SetChartInfo(string trCode, string rqName)
         {
             apiModel.SetRequestType(trCode, rqName);
-            
+
             string stockCode = apiModel.GetRequestValue<string>("종목코드");
 
             RequestStockInfo(stockCode);
             RequestOrderBook(stockCode);
-            
+
             mainView.PriceSeries.Points.Clear();
             mainView.VolumeSeries.Points.Clear();
             mainView.IndicatorSeries.Points.Clear();
 
             if (rqName == "주식분봉차트조회" || rqName == "주식틱봉차트조회")
+            {
                 mainView.MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0";
+            }
             else
+            { 
                 mainView.MainChart.ChartAreas[1].AxisY.LabelStyle.Format = "#,##0,K";
+            }
 
             ParseChartData(trCode, rqName, out int minValue, out int maxValue);
             MergeTimeSeries();
